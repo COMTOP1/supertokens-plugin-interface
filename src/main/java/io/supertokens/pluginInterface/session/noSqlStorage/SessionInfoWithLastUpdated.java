@@ -20,7 +20,7 @@ import com.google.gson.JsonObject;
 import io.supertokens.pluginInterface.session.SessionInfo;
 
 public class SessionInfoWithLastUpdated extends SessionInfo {
-    public String lastUpdatedSign;
+    public final String lastUpdatedSign;
 
     public SessionInfoWithLastUpdated(String sessionHandle, String userId, String refreshTokenHash2,
                                       JsonObject userDataInDatabase, long expiry, JsonObject userDataInJWT,

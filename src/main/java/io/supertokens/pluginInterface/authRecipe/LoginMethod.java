@@ -124,8 +124,8 @@ public class LoginMethod {
     }
 
     public static class ThirdParty {
-        public String id;
-        public String userId;
+        public final String id;
+        public final String userId;
 
         public ThirdParty(String id, String userId) {
             this.id = id;

@@ -57,7 +57,7 @@ public interface SQLStorage extends Storage {
         T mainLogic(SessionObject sessionInstance) throws Exception;
     }
 
-    public enum TransactionIsolationLevel {
+    enum TransactionIsolationLevel {
         SERIALIZABLE, REPEATABLE_READ, READ_COMMITTED, READ_UNCOMMITTED, NONE
     }
 

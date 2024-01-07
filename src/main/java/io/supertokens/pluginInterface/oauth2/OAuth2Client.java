@@ -16,6 +16,7 @@
 
 package io.supertokens.pluginInterface.oauth2;
 
+import java.util.HashSet;
 import java.util.List;
 
 public class OAuth2Client {
@@ -60,6 +61,6 @@ public class OAuth2Client {
         if (list1 == null || list2 == null || list1.size() != list2.size()) {
             return false;
         }
-        return list1.containsAll(list2);
+        return new HashSet<>(list1).containsAll(list2);
     }
 }

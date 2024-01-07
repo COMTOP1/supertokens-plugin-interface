@@ -17,8 +17,11 @@
 
 package io.supertokens.pluginInterface.exceptions;
 
+import java.io.Serial;
+
 public class StorageQueryException extends Exception {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     public StorageQueryException(Exception e) {

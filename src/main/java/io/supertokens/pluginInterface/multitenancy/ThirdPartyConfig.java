@@ -76,7 +76,7 @@ public class ThirdPartyConfig {
         public final String userInfoEndpoint;
 
         @Nullable
-        public JsonObject userInfoEndpointQueryParams;
+        public final JsonObject userInfoEndpointQueryParams;
 
         @Nullable
         public final JsonObject userInfoEndpointHeaders;
@@ -224,10 +224,10 @@ public class ThirdPartyConfig {
 
     public static class UserInfoMap {
         @Nonnull
-        public UserInfoMapKeyValue fromIdTokenPayload;
+        public final UserInfoMapKeyValue fromIdTokenPayload;
 
         @Nonnull
-        public UserInfoMapKeyValue fromUserInfoAPI;
+        public final UserInfoMapKeyValue fromUserInfoAPI;
 
         public UserInfoMap(@Nullable UserInfoMapKeyValue fromIdTokenPayload,
                            @Nullable UserInfoMapKeyValue fromUserInfoAPI) {
@@ -248,13 +248,13 @@ public class ThirdPartyConfig {
 
     public static class UserInfoMapKeyValue {
         @Nullable
-        public String userId;
+        public final String userId;
 
         @Nullable
-        public String email;
+        public final String email;
 
         @Nullable
-        public String emailVerified;
+        public final String emailVerified;
 
         public UserInfoMapKeyValue(@Nullable String userId, @Nullable String email, @Nullable String emailVerified) {
             this.userId = userId;

@@ -16,6 +16,9 @@
 
 package io.supertokens.pluginInterface.oauth2.exception;
 
+import java.io.Serial;
+
 public class UnknownRedirectURIException extends Exception {
-    public final static long serialVersionUID = 6848053563771647272L;
+    @Serial
+    private final static long serialVersionUID = 6848053563771647272L;
 }

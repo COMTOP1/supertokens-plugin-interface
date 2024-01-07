@@ -38,7 +38,7 @@ public class AppIdentifier {
 
     @Nonnull
     public String getAppId() {
-        if (this.appId == null || this.appId.equals("")) {
+        if (this.appId == null || this.appId.isEmpty()) {
             return DEFAULT_APP_ID;
         }
         return this.appId.trim().toLowerCase();

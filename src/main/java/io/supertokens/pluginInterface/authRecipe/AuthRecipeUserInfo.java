@@ -172,7 +172,7 @@ public class AuthRecipeUserInfo {
         }
         jsonObject.add("thirdParty", thirdPartyJson);
 
-        // now we add login methods..
+        // now we add login methods...
         JsonArray loginMethodsArr = new JsonArray();
         for (LoginMethod lM : this.loginMethods) {
             JsonObject lMJsonObject = new JsonObject();
@@ -207,13 +207,13 @@ public class AuthRecipeUserInfo {
         if (!didCallSetExternalUserId) {
             throw new RuntimeException("Found a bug: Did you forget to call setExternalUserId?");
         }
-        if (this.loginMethods.length != 1) {
-            // this is for older CDI versions.
-            // we are deliberately not throwing this exception to let the core work with older versions of CDI.
-            // throw new IllegalStateException(
-            //         "Please use a CDI version that is greater than the one in which account linking feature was " +
-            //                 "enabled.");
-        }
+//        this is for older CDI versions.
+//        we are deliberately not throwing this exception to let the core work with older versions of CDI.
+//        if (this.loginMethods.length != 1) {
+//             throw new IllegalStateException(
+//                     "Please use a CDI version that is greater than the one in which account linking feature was " +
+//                             "enabled.");
+//        }
         LoginMethod loginMethod = loginMethods[0];
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("id", loginMethod.getSupertokensOrExternalUserId());

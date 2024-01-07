@@ -16,6 +16,9 @@
 
 package io.supertokens.pluginInterface.thirdparty.exception;
 
+import java.io.Serial;
+
 public class DuplicateThirdPartyUserException extends ThirdPartyException {
+    @Serial
     private static final long serialVersionUID = 6848053563771647272L;
 }

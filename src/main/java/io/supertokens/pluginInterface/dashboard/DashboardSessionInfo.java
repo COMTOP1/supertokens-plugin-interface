@@ -1,10 +1,10 @@
 package io.supertokens.pluginInterface.dashboard;
 
 public class DashboardSessionInfo {
-    public String userId;
-    public String sessionId;
-    public long timeCreated;
-    public long expiry;
+    public final String userId;
+    public final String sessionId;
+    public final long timeCreated;
+    public final long expiry;
 
     public DashboardSessionInfo(String userId, String sessionId, long timeCreated, long expiry) {
         this.userId = userId;

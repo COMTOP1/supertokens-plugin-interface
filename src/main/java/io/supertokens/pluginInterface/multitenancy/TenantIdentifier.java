@@ -45,7 +45,7 @@ public class TenantIdentifier {
 
     @Nonnull
     public String getTenantId() {
-        if (this.tenantId == null || this.tenantId.equals("")) {
+        if (this.tenantId == null || this.tenantId.isEmpty()) {
             return DEFAULT_TENANT_ID;
         }
         return this.tenantId.trim().toLowerCase();
@@ -53,7 +53,7 @@ public class TenantIdentifier {
 
     @Nonnull
     public String getAppId() {
-        if (this.appId == null || this.appId.equals("")) {
+        if (this.appId == null || this.appId.isEmpty()) {
             return DEFAULT_APP_ID;
         }
         return this.appId.trim().toLowerCase();
