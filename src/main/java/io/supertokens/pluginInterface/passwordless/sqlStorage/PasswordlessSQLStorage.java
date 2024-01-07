@@ -32,9 +32,6 @@ import io.supertokens.pluginInterface.sqlStorage.SQLStorage;
 import io.supertokens.pluginInterface.sqlStorage.TransactionConnection;
 import io.supertokens.pluginInterface.sqlStorage.SessionObject;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
 public interface PasswordlessSQLStorage extends PasswordlessStorage, SQLStorage {
     PasswordlessDevice getDevice_Transaction(TransactionConnection con, String deviceIdHash)
             throws StorageQueryException;

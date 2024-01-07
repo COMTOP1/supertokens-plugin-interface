@@ -23,7 +23,6 @@ import io.supertokens.pluginInterface.multitenancy.AppIdentifier;
 import io.supertokens.pluginInterface.multitenancy.TenantIdentifier;
 import io.supertokens.pluginInterface.multitenancy.exceptions.TenantOrAppNotFoundException;
 import io.supertokens.pluginInterface.nonAuthRecipe.NonAuthRecipeStorage;
-import io.supertokens.pluginInterface.exceptions.StorageTransactionLogicException;
 
 public interface EmailVerificationStorage extends NonAuthRecipeStorage, Storage {
 

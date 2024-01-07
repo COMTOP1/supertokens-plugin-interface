@@ -22,7 +22,6 @@ import io.supertokens.pluginInterface.multitenancy.TenantIdentifier;
 import io.supertokens.pluginInterface.multitenancy.exceptions.TenantOrAppNotFoundException;
 import io.supertokens.pluginInterface.nonAuthRecipe.NonAuthRecipeStorage;
 import io.supertokens.pluginInterface.oauth2.exception.*;
-import io.supertokens.pluginInterface.sqlStorage.TransactionConnection;
 
 import java.util.List;
 

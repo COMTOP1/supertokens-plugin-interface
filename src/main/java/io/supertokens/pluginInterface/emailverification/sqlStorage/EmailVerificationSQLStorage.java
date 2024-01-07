@@ -30,8 +30,6 @@ import io.supertokens.pluginInterface.multitenancy.TenantIdentifier;
 import io.supertokens.pluginInterface.multitenancy.exceptions.TenantOrAppNotFoundException;
 import io.supertokens.pluginInterface.sqlStorage.SQLStorage;
 import io.supertokens.pluginInterface.sqlStorage.SessionObject;
-import io.supertokens.pluginInterface.sqlStorage.TransactionConnection;
-import io.supertokens.pluginInterface.sqlStorage.SessionObject;
 
 public interface EmailVerificationSQLStorage extends EmailVerificationStorage, SQLStorage {
 
