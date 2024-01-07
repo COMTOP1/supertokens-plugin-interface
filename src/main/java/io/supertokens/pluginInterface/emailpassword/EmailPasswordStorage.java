@@ -17,15 +17,39 @@
 package io.supertokens.pluginInterface.emailpassword;
 
 import io.supertokens.pluginInterface.authRecipe.AuthRecipeStorage;
+import io.supertokens.pluginInterface.authRecipe.AuthRecipeUserInfo;
 import io.supertokens.pluginInterface.emailpassword.exceptions.DuplicateEmailException;
 import io.supertokens.pluginInterface.emailpassword.exceptions.DuplicatePasswordResetTokenException;
 import io.supertokens.pluginInterface.emailpassword.exceptions.DuplicateUserIdException;
 import io.supertokens.pluginInterface.emailpassword.exceptions.UnknownUserIdException;
 import io.supertokens.pluginInterface.exceptions.StorageQueryException;
+import io.supertokens.pluginInterface.multitenancy.AppIdentifier;
+import io.supertokens.pluginInterface.multitenancy.TenantIdentifier;
+import io.supertokens.pluginInterface.multitenancy.exceptions.TenantOrAppNotFoundException;
 
 import javax.annotation.Nonnull;
 
 public interface EmailPasswordStorage extends AuthRecipeStorage {
+
+    // we pass tenantIdentifier here cause this also adds to the userId <-> tenantId mapping
+    AuthRecipeUserInfo signUp(TenantIdentifier tenantIdentifier, String id, String email, String passwordHash, long timeJoined)
+            throws StorageQueryException, DuplicateUserIdException, DuplicateEmailException,
+            TenantOrAppNotFoundException;
+
+    // password reset stuff is app wide cause changing the password for a user affects all the tenants
+    // across which it's shared.
+    void addPasswordResetToken(AppIdentifier appIdentifier, PasswordResetTokenInfo passwordResetTokenInfo)
+            throws StorageQueryException, UnknownUserIdException, DuplicatePasswordResetTokenException;
+
+    PasswordResetTokenInfo getPasswordResetTokenInfo(AppIdentifier appIdentifier, String token)
+            throws StorageQueryException;
+
+    // we purposely do not add TenantIdentifier to this query cause
+    // this is called from a cronjob that runs per user pool ID
+    void deleteExpiredPasswordResetTokens() throws StorageQueryException;
+
+    PasswordResetTokenInfo[] getAllPasswordResetTokenInfoForUser(AppIdentifier appIdentifier, String userId)
+            throws StorageQueryException;
 
     void signUp(UserInfo userInfo) throws StorageQueryException, DuplicateUserIdException, DuplicateEmailException;
 
@@ -39,8 +63,6 @@ public interface EmailPasswordStorage extends AuthRecipeStorage {
             throws StorageQueryException, UnknownUserIdException, DuplicatePasswordResetTokenException;
 
     PasswordResetTokenInfo getPasswordResetTokenInfo(String token) throws StorageQueryException;
-
-    void deleteExpiredPasswordResetTokens() throws StorageQueryException;
 
     PasswordResetTokenInfo[] getAllPasswordResetTokenInfoForUser(String userId) throws StorageQueryException;
 

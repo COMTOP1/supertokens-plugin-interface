@@ -16,8 +16,9 @@
 
 package io.supertokens.pluginInterface.thirdparty.exception;
 
-import io.supertokens.pluginInterface.emailpassword.exceptions.EmailPasswordException;
+import java.io.Serial;
 
-public class DuplicateThirdPartyUserException extends EmailPasswordException {
+public class DuplicateThirdPartyUserException extends ThirdPartyException {
+    @Serial
     private static final long serialVersionUID = 6848053563771647272L;
 }

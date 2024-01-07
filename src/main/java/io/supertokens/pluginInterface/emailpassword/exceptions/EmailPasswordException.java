@@ -16,6 +16,9 @@
 
 package io.supertokens.pluginInterface.emailpassword.exceptions;
 
+import java.io.Serial;
+
 public class EmailPasswordException extends Exception {
+    @Serial
     private static final long serialVersionUID = -8903927332291558225L;
 }

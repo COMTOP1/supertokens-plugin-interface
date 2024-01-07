@@ -21,11 +21,10 @@ import io.supertokens.pluginInterface.KeyValueInfo;
 import io.supertokens.pluginInterface.Storage;
 import io.supertokens.pluginInterface.exceptions.StorageQueryException;
 import io.supertokens.pluginInterface.exceptions.StorageTransactionLogicException;
+import io.supertokens.pluginInterface.multitenancy.TenantIdentifier;
+import io.supertokens.pluginInterface.multitenancy.exceptions.TenantOrAppNotFoundException;
 
 public interface SQLStorage extends Storage {
-    <T> T startTransaction(TransactionLogic<T> logic, TransactionIsolationLevel isolationLevel)
-            throws StorageQueryException, StorageTransactionLogicException;
-
     <T> T startTransaction(TransactionLogic<T> logic) throws StorageQueryException, StorageTransactionLogicException;
 
     void commitTransaction(TransactionConnection con) throws StorageQueryException;
@@ -38,7 +37,36 @@ public interface SQLStorage extends Storage {
         T mainLogicAndCommit(TransactionConnection con) throws StorageQueryException, StorageTransactionLogicException;
     }
 
-    public enum TransactionIsolationLevel {
+    <T> T startSimpleTransactionHibernate(SimpleTransactionLogicHibernate<T> logic) throws Exception;
+
+    <T> T startTransactionHibernate(TransactionLogicHibernate<T> logic)
+            throws StorageQueryException, StorageTransactionLogicException;
+
+    void commitTransaction(SessionObject sessionInstance) throws Exception;
+
+    void setKeyValue_Transaction(SessionObject sessionInstance, String key, KeyValueInfo info)
+            throws StorageQueryException;
+
+    KeyValueInfo getKeyValue_Transaction(SessionObject sessionInstance, String key) throws StorageQueryException;
+
+    interface TransactionLogicHibernate<T> {
+        T mainLogicAndCommit(SessionObject sessionInstance) throws Exception;
+    }
+
+    interface SimpleTransactionLogicHibernate<T> {
+        T mainLogic(SessionObject sessionInstance) throws Exception;
+    }
+
+    enum TransactionIsolationLevel {
         SERIALIZABLE, REPEATABLE_READ, READ_COMMITTED, READ_UNCOMMITTED, NONE
     }
+
+    <T> T startTransaction(TransactionLogic<T> logic, TransactionIsolationLevel isolationLevel)
+            throws StorageQueryException, StorageTransactionLogicException;
+
+    void setKeyValue_Transaction(TenantIdentifier tenantIdentifier, TransactionConnection con, String key,
+                                 KeyValueInfo info) throws StorageQueryException, TenantOrAppNotFoundException;
+
+    KeyValueInfo getKeyValue_Transaction(TenantIdentifier tenantIdentifier, TransactionConnection con, String key)
+            throws StorageQueryException;
 }

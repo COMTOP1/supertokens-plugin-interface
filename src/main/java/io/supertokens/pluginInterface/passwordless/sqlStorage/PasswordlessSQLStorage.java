@@ -22,12 +22,15 @@ import javax.annotation.Nullable;
 import io.supertokens.pluginInterface.emailpassword.exceptions.DuplicateEmailException;
 import io.supertokens.pluginInterface.emailpassword.exceptions.UnknownUserIdException;
 import io.supertokens.pluginInterface.exceptions.StorageQueryException;
+import io.supertokens.pluginInterface.multitenancy.AppIdentifier;
+import io.supertokens.pluginInterface.multitenancy.TenantIdentifier;
 import io.supertokens.pluginInterface.passwordless.PasswordlessCode;
 import io.supertokens.pluginInterface.passwordless.PasswordlessDevice;
 import io.supertokens.pluginInterface.passwordless.PasswordlessStorage;
 import io.supertokens.pluginInterface.passwordless.exception.DuplicatePhoneNumberException;
 import io.supertokens.pluginInterface.sqlStorage.SQLStorage;
 import io.supertokens.pluginInterface.sqlStorage.TransactionConnection;
+import io.supertokens.pluginInterface.sqlStorage.SessionObject;
 
 public interface PasswordlessSQLStorage extends PasswordlessStorage, SQLStorage {
     PasswordlessDevice getDevice_Transaction(TransactionConnection con, String deviceIdHash)
@@ -57,4 +60,86 @@ public interface PasswordlessSQLStorage extends PasswordlessStorage, SQLStorage 
     void updateUserPhoneNumber_Transaction(TransactionConnection con, @Nonnull String userId,
             @Nullable String phoneNumber)
             throws StorageQueryException, UnknownUserIdException, DuplicatePhoneNumberException;
+
+    PasswordlessDevice getDevice_Transaction(SessionObject sessionInstance, String deviceIdHash)
+            throws StorageQueryException;
+
+    void incrementDeviceFailedAttemptCount_Transaction(SessionObject sessionInstance, String deviceIdHash)
+            throws StorageQueryException;
+
+    PasswordlessCode[] getCodesOfDevice_Transaction(SessionObject sessionInstance, String deviceIdHash)
+            throws StorageQueryException;
+
+    void deleteDevice_Transaction(SessionObject sessionInstance, String deviceIdHash) throws StorageQueryException;
+
+    void deleteDevicesByPhoneNumber_Transaction(SessionObject sessionInstance, String phoneNumber)
+            throws StorageQueryException;
+
+    void deleteDevicesByEmail_Transaction(SessionObject sessionInstance, String email) throws StorageQueryException;
+
+    PasswordlessCode getCodeByLinkCodeHash_Transaction(SessionObject sessionInstance, String linkCodeHash)
+            throws StorageQueryException;
+
+    void deleteCode_Transaction(SessionObject sessionInstance, String codeId) throws StorageQueryException;
+
+    void updateUserEmail_Transaction(SessionObject sessionInstance, @Nonnull String userId, @Nullable String email)
+            throws StorageQueryException, UnknownUserIdException, DuplicateEmailException;
+
+    void updateUserPhoneNumber_Transaction(SessionObject sessionInstance, @Nonnull String userId,
+                                           @Nullable String phoneNumber)
+            throws StorageQueryException, UnknownUserIdException, DuplicatePhoneNumberException;
+
+    PasswordlessDevice getDevice_Transaction(TenantIdentifier tenantIdentifier, TransactionConnection con,
+                                             String deviceIdHash)
+            throws StorageQueryException;
+
+    void incrementDeviceFailedAttemptCount_Transaction(TenantIdentifier tenantIdentifier, TransactionConnection con,
+                                                       String deviceIdHash)
+            throws StorageQueryException;
+
+    PasswordlessCode[] getCodesOfDevice_Transaction(TenantIdentifier tenantIdentifier, TransactionConnection con,
+                                                    String deviceIdHash)
+            throws StorageQueryException;
+
+    void deleteDevice_Transaction(TenantIdentifier tenantIdentifier, TransactionConnection con, String deviceIdHash)
+            throws StorageQueryException;
+
+    // we have deleteDevicesBy* for tenantIdentifier and for appIdentifier cause the tenantIdentifier version is
+    // used when trying to log into one specific tenant. But if the user's detail is updated, then this
+    // would affect all the tenants that share that userId.
+
+    void deleteDevicesByPhoneNumber_Transaction(TenantIdentifier tenantIdentifier, TransactionConnection con,
+                                                String phoneNumber)
+            throws StorageQueryException;
+
+    void deleteDevicesByEmail_Transaction(TenantIdentifier tenantIdentifier, TransactionConnection con, String email)
+            throws StorageQueryException;
+
+    void deleteDevicesByPhoneNumber_Transaction(AppIdentifier appIdentifier, TransactionConnection con,
+                                                String phoneNumber, String userId)
+            throws StorageQueryException;
+
+    void deleteDevicesByEmail_Transaction(AppIdentifier appIdentifier, TransactionConnection con, String email,
+                                          String userId)
+            throws StorageQueryException;
+
+    PasswordlessCode getCodeByLinkCodeHash_Transaction(TenantIdentifier tenantIdentifier, TransactionConnection con,
+                                                       String linkCodeHash)
+            throws StorageQueryException;
+
+    void deleteCode_Transaction(TenantIdentifier tenantIdentifier, TransactionConnection con, String codeId)
+            throws StorageQueryException;
+
+    void updateUserEmail_Transaction(AppIdentifier appIdentifier, TransactionConnection con, @Nonnull String userId,
+                                     @Nullable String email)
+            throws StorageQueryException, UnknownUserIdException, DuplicateEmailException;
+
+    void updateUserPhoneNumber_Transaction(AppIdentifier appIdentifier, TransactionConnection con,
+                                           @Nonnull String userId,
+                                           @Nullable String phoneNumber)
+            throws StorageQueryException, UnknownUserIdException, DuplicatePhoneNumberException;
+
+    void deletePasswordlessUser_Transaction(TransactionConnection con, AppIdentifier appIdentifier, String userId,
+                                            boolean deleteUserIdMappingToo)
+            throws StorageQueryException;
 }

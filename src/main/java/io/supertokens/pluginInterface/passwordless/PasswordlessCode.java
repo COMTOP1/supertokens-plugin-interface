@@ -1,10 +1,10 @@
 package io.supertokens.pluginInterface.passwordless;
 
 public class PasswordlessCode {
-    public final String id;
-    public final String deviceIdHash;
-    public final String linkCodeHash;
-    public final Long createdAt;
+    public String id;
+    public String deviceIdHash;
+    public String linkCodeHash;
+    public Long createdAt;
 
     public PasswordlessCode(String id, String deviceIdHash, String linkCodeHash, Long createdAt) {
         this.id = id;
@@ -15,7 +15,7 @@ public class PasswordlessCode {
 
     @Override
     public int hashCode() {
-        final int prime = 31;
+        int prime = 31;
         int result = 1;
         result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
         result = prime * result + ((deviceIdHash == null) ? 0 : deviceIdHash.hashCode());
@@ -58,12 +58,7 @@ public class PasswordlessCode {
             return false;
         }
         if (linkCodeHash == null) {
-            if (other.linkCodeHash != null) {
-                return false;
-            }
-        } else if (!linkCodeHash.equals(other.linkCodeHash)) {
-            return false;
-        }
-        return true;
+            return other.linkCodeHash == null;
+        } else return linkCodeHash.equals(other.linkCodeHash);
     }
 }

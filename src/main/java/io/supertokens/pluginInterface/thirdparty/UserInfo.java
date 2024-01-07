@@ -18,23 +18,24 @@ package io.supertokens.pluginInterface.thirdparty;
 
 import io.supertokens.pluginInterface.RECIPE_ID;
 import io.supertokens.pluginInterface.authRecipe.AuthRecipeUserInfo;
+import io.supertokens.pluginInterface.authRecipe.LoginMethod;
 
 public class UserInfo extends AuthRecipeUserInfo {
 
-    public final ThirdParty thirdParty;
+    public ThirdParty thirdParty;
 
-    public final String email;
+    public String email;
 
-    public UserInfo(String id, String email, ThirdParty thirdParty, long timeJoined) {
-        super(id, timeJoined);
+    public UserInfo(String id, String email, ThirdParty thirdParty, Boolean isPrimaryUser, LoginMethod loginMethod) {
+        super(id, isPrimaryUser, loginMethod);
         this.thirdParty = thirdParty;
         this.email = email;
     }
 
     public static class ThirdParty {
-        public final String id;
+        public String id;
 
-        public final String userId;
+        public String userId;
 
         public ThirdParty(String id, String userId) {
             this.id = id;
@@ -42,7 +43,6 @@ public class UserInfo extends AuthRecipeUserInfo {
         }
     }
 
-    @Override
     public RECIPE_ID getRecipeId() {
         return RECIPE_ID.THIRD_PARTY;
     }
@@ -51,7 +51,7 @@ public class UserInfo extends AuthRecipeUserInfo {
     public boolean equals(Object other) {
         if (other instanceof UserInfo) {
             UserInfo otherUserInfo = (UserInfo) other;
-            return otherUserInfo.email.equals(this.email) && otherUserInfo.id.equals(this.id)
+            return otherUserInfo.email.equals(this.email) && otherUserInfo.getSupertokensUserId().equals(this.getSupertokensUserId())
                     && otherUserInfo.timeJoined == this.timeJoined
                     && otherUserInfo.thirdParty.userId.equals(this.thirdParty.userId)
                     && otherUserInfo.thirdParty.id.equals(this.thirdParty.id);

@@ -17,8 +17,10 @@
 package io.supertokens.pluginInterface.session;
 
 import com.google.gson.JsonObject;
-import io.supertokens.pluginInterface.Storage;
 import io.supertokens.pluginInterface.exceptions.StorageQueryException;
+import io.supertokens.pluginInterface.multitenancy.AppIdentifier;
+import io.supertokens.pluginInterface.multitenancy.TenantIdentifier;
+import io.supertokens.pluginInterface.multitenancy.exceptions.TenantOrAppNotFoundException;
 import io.supertokens.pluginInterface.nonAuthRecipe.NonAuthRecipeStorage;
 
 import javax.annotation.Nullable;
@@ -44,4 +46,30 @@ public interface SessionStorage extends NonAuthRecipeStorage {
             throws StorageQueryException;
 
     void removeAccessTokenSigningKeysBefore(long time) throws StorageQueryException;
+
+    void createNewSession(TenantIdentifier tenantIdentifier, String sessionHandle, String userId,
+                          String refreshTokenHash2, JsonObject userDataInDatabase,
+                          long expiry, JsonObject userDataInJWT, long createdAtTime, boolean useStaticKey)
+            throws StorageQueryException,
+            TenantOrAppNotFoundException;
+
+    void deleteSessionsOfUser(AppIdentifier appIdentifier, String userId) throws StorageQueryException;
+
+    boolean deleteSessionsOfUser(TenantIdentifier tenantIdentifier, String userId) throws StorageQueryException;
+
+    // return number of rows else throw UnsupportedOperationException
+    int getNumberOfSessions(TenantIdentifier tenantIdentifier) throws StorageQueryException;
+
+    int deleteSession(TenantIdentifier tenantIdentifier, String[] sessionHandles) throws StorageQueryException;
+
+    String[] getAllNonExpiredSessionHandlesForUser(TenantIdentifier tenantIdentifier, String userId)
+            throws StorageQueryException;
+
+    SessionInfo getSession(TenantIdentifier tenantIdentifier, String sessionHandle) throws StorageQueryException;
+
+    int updateSession(TenantIdentifier tenantIdentifier, String sessionHandle, @Nullable JsonObject sessionData,
+                      @Nullable JsonObject jwtPayload)
+            throws StorageQueryException;
+
+    void removeAccessTokenSigningKeysBefore(AppIdentifier appIdentifier, long time) throws StorageQueryException;
 }

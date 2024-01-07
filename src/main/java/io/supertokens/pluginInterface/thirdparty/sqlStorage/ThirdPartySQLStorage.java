@@ -17,8 +17,10 @@
 package io.supertokens.pluginInterface.thirdparty.sqlStorage;
 
 import io.supertokens.pluginInterface.exceptions.StorageQueryException;
+import io.supertokens.pluginInterface.multitenancy.AppIdentifier;
 import io.supertokens.pluginInterface.sqlStorage.SQLStorage;
 import io.supertokens.pluginInterface.sqlStorage.TransactionConnection;
+import io.supertokens.pluginInterface.sqlStorage.SessionObject;
 import io.supertokens.pluginInterface.thirdparty.ThirdPartyStorage;
 import io.supertokens.pluginInterface.thirdparty.UserInfo;
 
@@ -29,4 +31,18 @@ public interface ThirdPartySQLStorage extends ThirdPartyStorage, SQLStorage {
 
     void updateUserEmail_Transaction(TransactionConnection con, String thirdPartyId, String thirdPartyUserId,
             String newEmail) throws StorageQueryException;
+
+    UserInfo getUserInfoUsingId_Transaction(SessionObject sessionInstance, String thirdPartyId, String thirdPartyUserId)
+            throws StorageQueryException;
+
+    void updateUserEmail_Transaction(SessionObject sessionInstance, String thirdPartyId, String thirdPartyUserId,
+                                     String newEmail) throws StorageQueryException;
+
+    void updateUserEmail_Transaction(AppIdentifier appIdentifier, TransactionConnection con, String thirdPartyId,
+                                     String thirdPartyUserId,
+                                     String newEmail) throws StorageQueryException;
+
+    void deleteThirdPartyUser_Transaction(TransactionConnection con, AppIdentifier appIdentifier, String userId,
+                                          boolean deleteUserIdMappingToo)
+            throws StorageQueryException;
 }

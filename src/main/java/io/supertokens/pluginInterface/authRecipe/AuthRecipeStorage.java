@@ -19,18 +19,51 @@ package io.supertokens.pluginInterface.authRecipe;
 
 import io.supertokens.pluginInterface.RECIPE_ID;
 import io.supertokens.pluginInterface.Storage;
+import io.supertokens.pluginInterface.dashboard.DashboardSearchTags;
 import io.supertokens.pluginInterface.exceptions.StorageQueryException;
+import io.supertokens.pluginInterface.multitenancy.AppIdentifier;
+import io.supertokens.pluginInterface.multitenancy.TenantIdentifier;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public interface AuthRecipeStorage extends Storage {
 
-    long getUsersCount(@Nullable RECIPE_ID[] includeRecipeIds) throws StorageQueryException;
-
-    AuthRecipeUserInfo[] getUsers(@Nonnull Integer limit, @Nonnull String timeJoinedOrder,
-            @Nullable RECIPE_ID[] includeRecipeIds, @Nullable String userId, @Nullable Long timeJoined)
+    long getUsersCount(TenantIdentifier tenantIdentifier, @Nullable RECIPE_ID[] includeRecipeIds)
             throws StorageQueryException;
 
-    boolean doesUserIdExist(String userId) throws StorageQueryException;
+    long getUsersCount(AppIdentifier appIdentifier, @Nullable RECIPE_ID[] includeRecipeIds)
+            throws StorageQueryException;
+
+    AuthRecipeUserInfo[] getUsers(TenantIdentifier tenantIdentifier, @Nonnull Integer limit,
+                                  @Nonnull String timeJoinedOrder,
+                                  @Nullable RECIPE_ID[] includeRecipeIds, @Nullable String userId,
+                                  @Nullable Long timeJoined, @Nullable DashboardSearchTags dashboardSearchTags)
+            throws StorageQueryException;
+
+    boolean doesUserIdExist(AppIdentifier appIdentifier, String userId) throws StorageQueryException;
+
+    boolean doesUserIdExist(TenantIdentifier tenantIdentifierIdentifier, String userId) throws StorageQueryException;
+
+    AuthRecipeUserInfo getPrimaryUserById(AppIdentifier appIdentifier, String userId) throws StorageQueryException;
+
+    String getPrimaryUserIdStrForUserId(AppIdentifier appIdentifier, String userId) throws StorageQueryException;
+
+    AuthRecipeUserInfo[] listPrimaryUsersByEmail(TenantIdentifier tenantIdentifier, String email)
+            throws StorageQueryException;
+
+    AuthRecipeUserInfo[] listPrimaryUsersByPhoneNumber(TenantIdentifier tenantIdentifier, String phoneNumber)
+            throws StorageQueryException;
+
+    AuthRecipeUserInfo[] listPrimaryUsersByThirdPartyInfo(AppIdentifier appIdentifier, String thirdPartyId, String thirdPartyUserId)
+            throws StorageQueryException;
+
+    AuthRecipeUserInfo getPrimaryUserByThirdPartyInfo(TenantIdentifier tenantIdentifier, String thirdPartyId,
+                                                      String thirdPartyUserId) throws StorageQueryException;
+
+    boolean checkIfUsesAccountLinking(AppIdentifier appIdentifier) throws StorageQueryException;
+
+    int getUsersCountWithMoreThanOneLoginMethod(AppIdentifier appIdentifier) throws StorageQueryException;
+
+    int getUsersCountWithMoreThanOneLoginMethodOrTOTPEnabled(AppIdentifier appIdentifier) throws StorageQueryException;
 }

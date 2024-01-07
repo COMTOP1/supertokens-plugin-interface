@@ -22,9 +22,9 @@ public class UserIdMappingAlreadyExistsException extends UserIdMappingException 
     @Serial
     private static final long serialVersionUID = -492689371744874366L;
 
-    public final boolean doesSuperTokensUserIdExist;
+    public boolean doesSuperTokensUserIdExist;
 
-    public final boolean doesExternalUserIdExist;
+    public boolean doesExternalUserIdExist;
 
     public UserIdMappingAlreadyExistsException(boolean doesSuperTokensUserIdExist, boolean doesExternalUserIdExist) {
 

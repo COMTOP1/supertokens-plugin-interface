@@ -17,11 +17,11 @@
 package io.supertokens.pluginInterface.passwordless;
 
 public class PasswordlessDevice {
-    public final String deviceIdHash;
-    public final String email;
-    public final String phoneNumber;
-    public final String linkCodeSalt;
-    public final int failedAttempts;
+    public String deviceIdHash;
+    public String email;
+    public String phoneNumber;
+    public String linkCodeSalt;
+    public int failedAttempts;
 
     public PasswordlessDevice(String deviceIdHash, String email, String phoneNumber, String linkCodeSalt,
             int failedAttempts) {

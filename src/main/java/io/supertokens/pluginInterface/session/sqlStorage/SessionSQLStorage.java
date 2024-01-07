@@ -18,30 +18,69 @@ package io.supertokens.pluginInterface.session.sqlStorage;
 
 import io.supertokens.pluginInterface.KeyValueInfo;
 import io.supertokens.pluginInterface.exceptions.StorageQueryException;
+import io.supertokens.pluginInterface.multitenancy.AppIdentifier;
+import io.supertokens.pluginInterface.multitenancy.TenantIdentifier;
+import io.supertokens.pluginInterface.multitenancy.exceptions.TenantOrAppNotFoundException;
 import io.supertokens.pluginInterface.session.SessionInfo;
 import io.supertokens.pluginInterface.session.SessionStorage;
 import io.supertokens.pluginInterface.sqlStorage.SQLStorage;
 import io.supertokens.pluginInterface.sqlStorage.TransactionConnection;
+import io.supertokens.pluginInterface.sqlStorage.SessionObject;
 
 public interface SessionSQLStorage extends SessionStorage, SQLStorage {
 
     void removeLegacyAccessTokenSigningKey_Transaction(TransactionConnection con) throws StorageQueryException;
 
+    void removeLegacyAccessTokenSigningKey_Transaction(SessionObject sessionInstance) throws StorageQueryException;
+
     KeyValueInfo getLegacyAccessTokenSigningKey_Transaction(TransactionConnection con) throws StorageQueryException;
 
+    KeyValueInfo getLegacyAccessTokenSigningKey_Transaction(AppIdentifier appIdentifier,
+                                                            TransactionConnection con) throws StorageQueryException;
+
     KeyValueInfo[] getAccessTokenSigningKeys_Transaction(TransactionConnection con) throws StorageQueryException;
+
+    KeyValueInfo[] getAccessTokenSigningKeys_Transaction(AppIdentifier appIdentifier, TransactionConnection con)
+            throws StorageQueryException;
 
     void addAccessTokenSigningKey_Transaction(TransactionConnection con, KeyValueInfo info)
             throws StorageQueryException;
 
-    KeyValueInfo getRefreshTokenSigningKey_Transaction(TransactionConnection con) throws StorageQueryException;
+    KeyValueInfo[] getAccessTokenSigningKeys_Transaction(SessionObject sessionInstance) throws StorageQueryException;
 
-    void setRefreshTokenSigningKey_Transaction(TransactionConnection con, KeyValueInfo info)
+    void addAccessTokenSigningKey_Transaction(SessionObject sessionInstance, KeyValueInfo info)
             throws StorageQueryException;
 
-    SessionInfo getSessionInfo_Transaction(TransactionConnection con, String sessionHandle)
+    KeyValueInfo getRefreshTokenSigningKey_Transaction(SessionObject sessionInstance) throws StorageQueryException;
+
+    void addAccessTokenSigningKey_Transaction(AppIdentifier appIdentifier, TransactionConnection con,
+                                              KeyValueInfo info)
+            throws StorageQueryException, TenantOrAppNotFoundException;
+
+    void setRefreshTokenSigningKey_Transaction(SessionObject sessionInstance, KeyValueInfo info) throws StorageQueryException;
+
+    KeyValueInfo getRefreshTokenSigningKey_Transaction(AppIdentifier appIdentifier, TransactionConnection con) throws StorageQueryException;
+
+    SessionInfo getSessionInfo_Transaction(SessionObject sessionInstance, String sessionHandle);
+
+    void setRefreshTokenSigningKey_Transaction(AppIdentifier appIdentifier, TransactionConnection con,
+                                               KeyValueInfo info)
+            throws StorageQueryException, TenantOrAppNotFoundException;
+
+    SessionInfo getSessionInfo_Transaction(TenantIdentifier tenantIdentifier, TransactionConnection con,
+                                           String sessionHandle)
             throws StorageQueryException;
 
-    void updateSessionInfo_Transaction(TransactionConnection con, String sessionHandle, String refreshTokenHash2,
+    void updateSessionInfo_Transaction(SessionObject sessionInstance, String sessionHandle, String refreshTokenHash2,
             long expiry) throws StorageQueryException;
+
+    void updateSessionInfo_Transaction(TenantIdentifier tenantIdentifier, TransactionConnection con,
+                                       String sessionHandle, String refreshTokenHash2,
+                                       long expiry) throws StorageQueryException;
+
+    void deleteSessionsOfUser_Transaction(TransactionConnection con, AppIdentifier appIdentifier, String userId)
+            throws StorageQueryException;
+
+    void removeLegacyAccessTokenSigningKey_Transaction(AppIdentifier appIdentifier, TransactionConnection con)
+            throws StorageQueryException;
 }

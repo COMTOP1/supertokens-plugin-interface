@@ -21,7 +21,9 @@ import io.supertokens.pluginInterface.emailpassword.PasswordResetTokenInfo;
 import io.supertokens.pluginInterface.emailpassword.UserInfo;
 import io.supertokens.pluginInterface.emailpassword.exceptions.DuplicateEmailException;
 import io.supertokens.pluginInterface.exceptions.StorageQueryException;
+import io.supertokens.pluginInterface.multitenancy.AppIdentifier;
 import io.supertokens.pluginInterface.sqlStorage.SQLStorage;
+import io.supertokens.pluginInterface.sqlStorage.SessionObject;
 import io.supertokens.pluginInterface.sqlStorage.TransactionConnection;
 
 public interface EmailPasswordSQLStorage extends EmailPasswordStorage, SQLStorage {
@@ -39,4 +41,42 @@ public interface EmailPasswordSQLStorage extends EmailPasswordStorage, SQLStorag
             throws StorageQueryException, DuplicateEmailException;
 
     UserInfo getUserInfoUsingId_Transaction(TransactionConnection con, String userId) throws StorageQueryException;
+
+    PasswordResetTokenInfo[] getAllPasswordResetTokenInfoForUser_Transaction(SessionObject sessionInstance,
+                                                                             String userId) throws StorageQueryException;
+
+    void deleteAllPasswordResetTokensForUser_Transaction(SessionObject sessionInstance, String userId)
+            throws StorageQueryException;
+
+    void updateUsersPassword_Transaction(SessionObject sessionInstance, String userId, String newPassword)
+            throws StorageQueryException;
+
+    void updateUsersEmail_Transaction(SessionObject sessionInstance, String userId, String email)
+            throws StorageQueryException, DuplicateEmailException;
+
+    UserInfo getUserInfoUsingId_Transaction(SessionObject sessionInstance, String userId) throws StorageQueryException;
+
+    // all password reset related stuff is app wide cause the same user ID can be shared across tenants,
+    // and updating / resetting a user's password should apply to all those tenants.
+
+    PasswordResetTokenInfo[] getAllPasswordResetTokenInfoForUser_Transaction(AppIdentifier appIdentifier,
+                                                                             TransactionConnection con, String userId)
+            throws StorageQueryException;
+
+    void deleteAllPasswordResetTokensForUser_Transaction(AppIdentifier appIdentifier, TransactionConnection con,
+                                                         String userId)
+            throws StorageQueryException;
+
+    void updateUsersPassword_Transaction(AppIdentifier appIdentifier, TransactionConnection con, String userId,
+                                         String newPassword)
+            throws StorageQueryException;
+
+    void updateUsersEmail_Transaction(AppIdentifier appIdentifier, TransactionConnection conn, String userId,
+                                      String email)
+            throws StorageQueryException, DuplicateEmailException;
+
+    // this deletion of a user is app wide since the same user ID can be shared across tenants
+    void deleteEmailPasswordUser_Transaction(TransactionConnection con, AppIdentifier appIdentifier, String userId,
+                                             boolean deleteUserIdMappingToo)
+            throws StorageQueryException;
 }

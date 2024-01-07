@@ -16,6 +16,9 @@
 
 package io.supertokens.pluginInterface.emailpassword.exceptions;
 
+import java.io.Serial;
+
 public class DuplicateEmailException extends EmailPasswordException {
+    @Serial
     private static final long serialVersionUID = 2647764242633597662L;
 }

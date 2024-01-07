@@ -20,11 +20,11 @@ import javax.annotation.Nullable;
 
 public class UserIdMapping {
 
-    public final String superTokensUserId;
+    public String superTokensUserId;
 
-    public final String externalUserId;
+    public String externalUserId;
 
-    public final @Nullable String externalUserIdInfo;
+    public @Nullable String externalUserIdInfo;
 
     public UserIdMapping(String superTokensUserId, String externalUserId, @Nullable String externalUserIdInfo) {
         this.superTokensUserId = superTokensUserId;
@@ -36,9 +36,10 @@ public class UserIdMapping {
     public boolean equals(Object other) {
         if (other instanceof UserIdMapping) {
             UserIdMapping otherUserIdMapping = (UserIdMapping) other;
-            return otherUserIdMapping.superTokensUserId.equals(this.superTokensUserId)
-                    && otherUserIdMapping.externalUserId.equals(this.externalUserId)
-                    && otherUserIdMapping.externalUserIdInfo.equals(this.externalUserIdInfo);
+            if (!otherUserIdMapping.superTokensUserId.equals(this.superTokensUserId)
+                    || !otherUserIdMapping.externalUserId.equals(this.externalUserId)) return false;
+            assert otherUserIdMapping.externalUserIdInfo != null;
+            return otherUserIdMapping.externalUserIdInfo.equals(this.externalUserIdInfo);
         }
         return false;
     }

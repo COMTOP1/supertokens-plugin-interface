@@ -17,11 +17,14 @@
 
 package io.supertokens.pluginInterface.exceptions;
 
+import java.io.Serial;
+
 public class StorageTransactionLogicException extends Exception {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
-    public final Exception actualException;
+    public Exception actualException;
 
     public StorageTransactionLogicException(Exception e) {
         super(e);

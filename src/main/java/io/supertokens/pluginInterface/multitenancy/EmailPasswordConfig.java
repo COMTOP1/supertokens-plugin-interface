@@ -1,5 +1,5 @@
 /*
- *    Copyright (c) 2020, VRAI Labs and/or its affiliates. All rights reserved.
+ *    Copyright (c) 2023, VRAI Labs and/or its affiliates. All rights reserved.
  *
  *    This software is licensed under the Apache License, Version 2.0 (the
  *    "License") as published by the Apache Software Foundation.
@@ -12,20 +12,24 @@
  *    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
  *    License for the specific language governing permissions and limitations
  *    under the License.
- *
  */
 
-package io.supertokens.pluginInterface.exceptions;
+package io.supertokens.pluginInterface.multitenancy;
 
-public class QuitProgramFromPluginException extends RuntimeException {
+public class EmailPasswordConfig {
+    public boolean enabled;
 
-    private static final long serialVersionUID = 1L;
-
-    public QuitProgramFromPluginException(String msg) {
-        super(msg);
+    public EmailPasswordConfig(boolean enabled) {
+        this.enabled = enabled;
     }
 
-    public QuitProgramFromPluginException(Exception e) {
-        super(e);
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof EmailPasswordConfig) {
+            EmailPasswordConfig otherEmailPasswordConfig = (EmailPasswordConfig) other;
+            return otherEmailPasswordConfig.enabled == this.enabled;
+        }
+        return false;
     }
+
 }
