@@ -80,4 +80,7 @@ public interface SessionSQLStorage extends SessionStorage, SQLStorage {
 
     void deleteSessionsOfUser_Transaction(TransactionConnection con, AppIdentifier appIdentifier, String userId)
             throws StorageQueryException;
+
+    void removeLegacyAccessTokenSigningKey_Transaction(AppIdentifier appIdentifier, TransactionConnection con)
+            throws StorageQueryException;
 }

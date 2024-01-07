@@ -30,6 +30,7 @@ import io.supertokens.pluginInterface.multitenancy.TenantIdentifier;
 import io.supertokens.pluginInterface.multitenancy.exceptions.TenantOrAppNotFoundException;
 import io.supertokens.pluginInterface.sqlStorage.SQLStorage;
 import io.supertokens.pluginInterface.sqlStorage.SessionObject;
+import io.supertokens.pluginInterface.sqlStorage.TransactionConnection;
 
 public interface EmailVerificationSQLStorage extends EmailVerificationStorage, SQLStorage {
 
@@ -62,4 +63,21 @@ public interface EmailVerificationSQLStorage extends EmailVerificationStorage, S
     PasswordResetTokenInfo[] getAllPasswordResetTokenInfoForUser(AppIdentifier appIdentifier, String userId)
             throws StorageQueryException;
 
+    EmailVerificationTokenInfo[] getAllEmailVerificationTokenInfoForUser_Transaction(TenantIdentifier tenantIdentifier,
+                                                                                     TransactionConnection con,
+                                                                                     String userId, String email)
+            throws StorageQueryException;
+
+    void deleteAllEmailVerificationTokensForUser_Transaction(TenantIdentifier tenantIdentifier,
+                                                             TransactionConnection con,
+                                                             String userId, String email)
+            throws StorageQueryException;
+
+    void updateIsEmailVerified_Transaction(AppIdentifier appIdentifier, TransactionConnection con, String userId,
+                                           String email,
+                                           boolean isEmailVerified)
+            throws StorageQueryException, TenantOrAppNotFoundException;
+
+    void deleteEmailVerificationUserInfo_Transaction(TransactionConnection con, AppIdentifier appIdentifier,
+                                                     String userId) throws StorageQueryException;
 }

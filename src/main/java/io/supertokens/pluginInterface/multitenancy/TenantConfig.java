@@ -63,6 +63,16 @@ public class TenantConfig {
         this.requiredSecondaryFactors = requiredSecondaryFactors == null || requiredSecondaryFactors.length == 0 ? null : requiredSecondaryFactors;
     }
 
+    public TenantConfig(@Nonnull TenantIdentifier tenantIdentifier, @Nonnull EmailPasswordConfig emailPasswordConfig,
+                        @Nonnull ThirdPartyConfig thirdPartyConfig,
+                        @Nonnull PasswordlessConfig passwordlessConfig, @Nullable JsonObject coreConfig) {
+        this.tenantIdentifier = tenantIdentifier;
+        this.coreConfig = coreConfig == null ? new JsonObject() : coreConfig;
+        this.emailPasswordConfig = emailPasswordConfig;
+        this.passwordlessConfig = passwordlessConfig;
+        this.thirdPartyConfig = thirdPartyConfig;
+    }
+
     public TenantConfig(TenantConfig other) {
         // copy constructor, that does a deep copy
         Gson gson = new Gson();
