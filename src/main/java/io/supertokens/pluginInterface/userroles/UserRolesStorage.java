@@ -16,6 +16,8 @@
 
 package io.supertokens.pluginInterface.userroles;
 
+import com.google.gson.JsonObject;
+import io.supertokens.pluginInterface.Storage;
 import io.supertokens.pluginInterface.exceptions.StorageQueryException;
 import io.supertokens.pluginInterface.multitenancy.AppIdentifier;
 import io.supertokens.pluginInterface.multitenancy.TenantIdentifier;
@@ -25,6 +27,34 @@ import io.supertokens.pluginInterface.userroles.exception.DuplicateUserRoleMappi
 import io.supertokens.pluginInterface.userroles.exception.UnknownRoleException;
 
 public interface UserRolesStorage extends NonAuthRecipeStorage {
+
+    // associate a userId with a role that exists
+    void addRoleToUser(String userId, String role)
+            throws StorageQueryException, UnknownRoleException, DuplicateUserRoleMappingException;
+
+    // get all roles associated with the input userId
+    String[] getRolesForUser(String userId) throws StorageQueryException;
+
+    // get all users associated with the input role
+    String[] getUsersForRole(String role) throws StorageQueryException;
+
+    // get permissions associated with the input role
+    String[] getPermissionsForRole(String role) throws StorageQueryException;
+
+    // get roles associated with the input permission
+    String[] getRolesThatHavePermission(String permission) throws StorageQueryException;
+
+    // delete a role
+    boolean deleteRole(String role) throws StorageQueryException;
+
+    // get all created roles
+    String[] getRoles() throws StorageQueryException;
+
+    // check if input roles exists
+    boolean doesRoleExist(String role) throws StorageQueryException;
+
+    // delete all roles for the input userId
+    int deleteAllRolesForUser(String userId) throws StorageQueryException;
 
     // associate a userId with a role that exists
     void addRoleToUser(TenantIdentifier tenantIdentifier, String userId, String role)

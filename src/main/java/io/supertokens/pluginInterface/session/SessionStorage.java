@@ -26,6 +26,27 @@ import io.supertokens.pluginInterface.nonAuthRecipe.NonAuthRecipeStorage;
 import javax.annotation.Nullable;
 
 public interface SessionStorage extends NonAuthRecipeStorage {
+    void createNewSession(String sessionHandle, String userId, String refreshTokenHash2, JsonObject userDataInDatabase,
+            long expiry, JsonObject userDataInJWT, long createdAtTime) throws StorageQueryException;
+
+    void deleteSessionsOfUser(String userId) throws StorageQueryException;
+
+    // return number of rows else throw UnsupportedOperationException
+    int getNumberOfSessions() throws StorageQueryException;
+
+    int deleteSession(String[] sessionHandles) throws StorageQueryException;
+
+    String[] getAllNonExpiredSessionHandlesForUser(String userId) throws StorageQueryException;
+
+    void deleteAllExpiredSessions() throws StorageQueryException;
+
+    SessionInfo getSession(String sessionHandle) throws StorageQueryException;
+
+    int updateSession(String sessionHandle, @Nullable JsonObject sessionData, @Nullable JsonObject jwtPayload)
+            throws StorageQueryException;
+
+    void removeAccessTokenSigningKeysBefore(long time) throws StorageQueryException;
+
     void createNewSession(TenantIdentifier tenantIdentifier, String sessionHandle, String userId,
                           String refreshTokenHash2, JsonObject userDataInDatabase,
                           long expiry, JsonObject userDataInJWT, long createdAtTime, boolean useStaticKey)
@@ -43,10 +64,6 @@ public interface SessionStorage extends NonAuthRecipeStorage {
 
     String[] getAllNonExpiredSessionHandlesForUser(TenantIdentifier tenantIdentifier, String userId)
             throws StorageQueryException;
-
-    // we purposely do not add TenantIdentifier to this query cause
-    // this is called from a cronjob that runs per user pool ID
-    void deleteAllExpiredSessions() throws StorageQueryException;
 
     SessionInfo getSession(TenantIdentifier tenantIdentifier, String sessionHandle) throws StorageQueryException;
 

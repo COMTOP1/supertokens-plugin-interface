@@ -17,11 +17,16 @@
 package io.supertokens.pluginInterface.usermetadata;
 
 import com.google.gson.JsonObject;
+import io.supertokens.pluginInterface.Storage;
 import io.supertokens.pluginInterface.exceptions.StorageQueryException;
 import io.supertokens.pluginInterface.multitenancy.AppIdentifier;
 import io.supertokens.pluginInterface.nonAuthRecipe.NonAuthRecipeStorage;
 
-public interface UserMetadataStorage extends NonAuthRecipeStorage {
+public interface UserMetadataStorage extends Storage {
+    JsonObject getUserMetadata(String userId) throws StorageQueryException;
+
+    int deleteUserMetadata(String userId) throws StorageQueryException;
+
     JsonObject getUserMetadata(AppIdentifier appIdentifier, String userId) throws StorageQueryException;
 
     int deleteUserMetadata(AppIdentifier appIdentifier, String userId) throws StorageQueryException;

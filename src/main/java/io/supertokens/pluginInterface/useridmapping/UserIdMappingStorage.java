@@ -51,5 +51,4 @@ public interface UserIdMappingStorage extends Storage {
     // superTokensUserId and the value will be the externalUserId. If a mapping does not exist for an input userId,
     // it will not be in a part of the returned HashMap
     HashMap<String, String> getUserIdMappingForSuperTokensIds(ArrayList<String> userIds) throws StorageQueryException;
-
 }

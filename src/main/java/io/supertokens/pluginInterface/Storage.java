@@ -30,9 +30,16 @@ import java.util.Set;
 public interface Storage {
 
     // if silent is true, do not log anything out on the console
+    void constructor(String processId, boolean silent);
+
+    // if silent is true, do not log anything out on the console
     void constructor(String processId, boolean silent, boolean isTesting);
 
     void loadConfig(JsonObject jsonConfig, Set<LOG_LEVEL> logLevels, TenantIdentifier tenantIdentifier) throws InvalidConfigException;
+
+    void loadConfig(String configFilePath);
+
+    void loadConfig(String configFilePath, Set<LOG_LEVEL> logLevels);
 
     // this returns a unique ID based on the db's connection URI and table prefix such that
     // two different user pool IDs imply that the data for those two user pools are completely isolated.
@@ -52,6 +59,8 @@ public interface Storage {
     void stopLogging();
 
     // load tables and create connection pools
+    void initStorage();
+
     void initStorage(boolean shouldWait) throws DbInitException;
 
     // used by the core to do transactions the right way.
@@ -62,12 +71,18 @@ public interface Storage {
 
     void close();
 
+    KeyValueInfo getKeyValue(String key) throws StorageQueryException;
+
+    void setKeyValue(String key, KeyValueInfo info) throws StorageQueryException;
+
     KeyValueInfo getKeyValue(TenantIdentifier tenantIdentifier, String key) throws StorageQueryException;
 
     void setKeyValue(TenantIdentifier tenantIdentifier, String key, KeyValueInfo info) throws StorageQueryException,
             TenantOrAppNotFoundException;
 
     void setStorageLayerEnabled(boolean enabled);
+
+    boolean canBeUsed(String configFilePath);
 
     boolean canBeUsed(JsonObject configJson) throws InvalidConfigException;
 
@@ -94,4 +109,12 @@ public interface Storage {
     String[] getAllTablesInTheDatabase() throws StorageQueryException;
 
     String[] getAllTablesInTheDatabaseThatHasDataForAppId(String appId) throws StorageQueryException;
+
+    // this function will be used in the createUserIdMapping and deleteUserIdMapping functions to check if the userId is
+    // being used in NonAuth recipes.
+    boolean isUserIdBeingUsedInNonAuthRecipe(String className, String userId) throws StorageQueryException;
+
+    // to be used for testing purposes only. This function will add dummy data to non-auth tables.
+    void addInfoToNonAuthRecipesBasedOnUserId(String className, String userId) throws StorageQueryException;
+
 }
