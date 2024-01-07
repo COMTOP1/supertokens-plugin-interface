@@ -17,8 +17,12 @@
 package io.supertokens.pluginInterface.thirdparty;
 
 import io.supertokens.pluginInterface.authRecipe.AuthRecipeStorage;
+import io.supertokens.pluginInterface.authRecipe.AuthRecipeUserInfo;
+import io.supertokens.pluginInterface.authRecipe.LoginMethod;
 import io.supertokens.pluginInterface.exceptions.StorageQueryException;
 import io.supertokens.pluginInterface.thirdparty.exception.DuplicateThirdPartyTenantMappingException;
+import io.supertokens.pluginInterface.multitenancy.TenantIdentifier;
+import io.supertokens.pluginInterface.multitenancy.exceptions.TenantOrAppNotFoundException;
 import io.supertokens.pluginInterface.thirdparty.exception.DuplicateThirdPartyUserException;
 import io.supertokens.pluginInterface.thirdparty.exception.DuplicateUserIdException;
 
@@ -63,4 +67,8 @@ public interface ThirdPartyStorage extends AuthRecipeStorage {
     long getThirdPartyUsersCount() throws StorageQueryException;
 
     UserInfo[] getThirdPartyUsersByEmail(@Nonnull String email) throws StorageQueryException;
+    AuthRecipeUserInfo signUp(TenantIdentifier tenantIdentifier, String id, String email, LoginMethod.ThirdParty thirdParty,
+                              long timeJoined)
+            throws StorageQueryException, DuplicateUserIdException, DuplicateThirdPartyUserException,
+            TenantOrAppNotFoundException;
 }
