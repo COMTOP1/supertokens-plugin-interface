@@ -18,13 +18,13 @@ package io.supertokens.pluginInterface.emailpassword;
 
 public class PasswordResetTokenInfo {
 
-    public final String userId;
+    public String userId;
 
-    public final String token;
+    public String token;
 
-    public final long tokenExpiry;
+    public long tokenExpiry;
 
-    public final String email;
+    public String email;
 
     public PasswordResetTokenInfo(String userId, String token, long tokenExpiry, String email) {
         this.userId = userId;

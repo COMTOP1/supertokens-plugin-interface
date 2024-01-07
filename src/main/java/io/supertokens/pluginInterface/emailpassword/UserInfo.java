@@ -22,10 +22,10 @@ import io.supertokens.pluginInterface.authRecipe.LoginMethod;
 
 public class UserInfo extends AuthRecipeUserInfo {
 
-    public final String email;
+    public String email;
 
     // using transient, we tell Gson not to include this when creating a JSON
-    public transient final String passwordHash;
+    public transient String passwordHash;
 
     public UserInfo(String id, String email, String passwordHash, Boolean isPrimaryUser, LoginMethod loginMethod) {
         super(id, isPrimaryUser, loginMethod);

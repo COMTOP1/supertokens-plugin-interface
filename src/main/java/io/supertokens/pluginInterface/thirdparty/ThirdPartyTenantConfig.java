@@ -18,11 +18,11 @@ package io.supertokens.pluginInterface.thirdparty;
 
 public class ThirdPartyTenantConfig {
 
-    public final String supertokensTenantId;
+    public String supertokensTenantId;
 
-    public final String thirdPartyId;
+    public String thirdPartyId;
 
-    public final String config;
+    public String config;
 
     public ThirdPartyTenantConfig(String supertokensTenantId, String thirdPartyId, String config) {
         this.supertokensTenantId = supertokensTenantId;

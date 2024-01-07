@@ -22,14 +22,14 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class AppIdentifier {
-    public static final String DEFAULT_APP_ID = "public";
-    public static final String DEFAULT_CONNECTION_URI = "";
+    public static String DEFAULT_APP_ID = "public";
+    public static String DEFAULT_CONNECTION_URI = "";
 
     @Nullable
-    private final String connectionUriDomain;
+    private String connectionUriDomain;
 
     @Nullable
-    private final String appId;
+    private String appId;
 
     public AppIdentifier(@Nullable String connectionUriDomain, @Nullable String appId) {
         this.connectionUriDomain = connectionUriDomain;

@@ -22,9 +22,9 @@ import io.supertokens.pluginInterface.authRecipe.LoginMethod;
 
 public class UserInfo extends AuthRecipeUserInfo {
 
-    public final ThirdParty thirdParty;
+    public ThirdParty thirdParty;
 
-    public final String email;
+    public String email;
 
     public UserInfo(String id, String email, ThirdParty thirdParty, Boolean isPrimaryUser, LoginMethod loginMethod) {
         super(id, isPrimaryUser, loginMethod);
@@ -33,9 +33,9 @@ public class UserInfo extends AuthRecipeUserInfo {
     }
 
     public static class ThirdParty {
-        public final String id;
+        public String id;
 
-        public final String userId;
+        public String userId;
 
         public ThirdParty(String id, String userId) {
             this.id = id;

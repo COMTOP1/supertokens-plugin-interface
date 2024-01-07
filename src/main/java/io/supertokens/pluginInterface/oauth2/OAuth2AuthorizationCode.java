@@ -19,17 +19,17 @@ package io.supertokens.pluginInterface.oauth2;
 import java.util.List;
 
 public class OAuth2AuthorizationCode {
-    public final String codeHash;
-    public final String sessionHandle;
-    public final String clientId;
-    public final long createdAtMs;
-    public final long expiresAtMs;
-    public final List<String> scope;
-    public final String redirectUri;
-    public final AccessType accessType;
-    public final String codeChallenge;
-    public final String codeChallengeMethod;
-    public final String queryString;
+    public String codeHash;
+    public String sessionHandle;
+    public String clientId;
+    public long createdAtMs;
+    public long expiresAtMs;
+    public List<String> scope;
+    public String redirectUri;
+    public AccessType accessType;
+    public String codeChallenge;
+    public String codeChallengeMethod;
+    public String queryString;
 
     public OAuth2AuthorizationCode(String codeHash, String sessionHandle, String clientId, long createdAtMs,
                                    long expiresAtMs, List<String> scope, String redirectUri, AccessType accessType,

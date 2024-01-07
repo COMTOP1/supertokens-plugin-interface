@@ -26,23 +26,23 @@ public class LoginMethod {
 
     public boolean verified;
 
-    public final long timeJoined;
+    public long timeJoined;
 
-    private final String recipeUserId;
+    private String recipeUserId;
 
     private String externalUserId;
 
-    public final RECIPE_ID recipeId;
+    public RECIPE_ID recipeId;
 
-    public final String email;
+    public String email;
 
-    public final String phoneNumber;
+    public String phoneNumber;
 
-    public final ThirdParty thirdParty;
+    public ThirdParty thirdParty;
 
-    public final Set<String> tenantIds;
+    public Set<String> tenantIds;
 
-    public transient final String passwordHash;
+    public transient String passwordHash;
 
     private boolean didCallSetExternalUserId = false;
 
@@ -124,8 +124,8 @@ public class LoginMethod {
     }
 
     public static class ThirdParty {
-        public final String id;
-        public final String userId;
+        public String id;
+        public String userId;
 
         public ThirdParty(String id, String userId) {
             this.id = id;

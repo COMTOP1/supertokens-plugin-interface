@@ -28,30 +28,26 @@ import javax.annotation.Nullable;
 public class TenantConfig {
 
     @Nonnull
-    public transient final TenantIdentifier tenantIdentifier;
+    public transient TenantIdentifier tenantIdentifier;
 
     @Nonnull
-    @SerializedName("emailPassword")
-    public final EmailPasswordConfig emailPasswordConfig;
+    public EmailPasswordConfig emailPasswordConfig;
 
     @Nonnull
-    @SerializedName("thirdParty")
-    public final ThirdPartyConfig thirdPartyConfig;
+    public ThirdPartyConfig thirdPartyConfig;
 
     @Nonnull
-    @SerializedName("passwordless")
-    public final PasswordlessConfig passwordlessConfig;
+    public PasswordlessConfig passwordlessConfig;
 
     @Nullable
     @SerializedName("firstFactors")
-    public final String[] firstFactors;
+    public String[] firstFactors;
 
     @Nullable
-    @SerializedName("requiredSecondaryFactors")
-    public final String[] requiredSecondaryFactors;
+    public String[] requiredSecondaryFactors;
 
     @Nonnull
-    public final JsonObject coreConfig;
+    public JsonObject coreConfig;
 
     public TenantConfig(@Nonnull TenantIdentifier tenantIdentifier, @Nonnull EmailPasswordConfig emailPasswordConfig,
                         @Nonnull ThirdPartyConfig thirdPartyConfig,

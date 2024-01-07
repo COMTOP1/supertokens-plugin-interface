@@ -18,8 +18,8 @@
 package io.supertokens.pluginInterface;
 
 public class KeyValueInfo {
-    public final String value;
-    public final long createdAtTime;
+    public String value;
+    public long createdAtTime;
 
     public KeyValueInfo(String value, long createdAtTime) {
         this.value = value;

@@ -7,9 +7,9 @@ import javax.annotation.Nullable;
 
 public class DashboardSearchTags {
 
-    public final List<String> emails;
-    public final List<String> phoneNumbers;
-    public final List<String> providers;
+    public List<String> emails;
+    public List<String> phoneNumbers;
+    public List<String> providers;
 
     public DashboardSearchTags(@Nullable List<String> emails, @Nullable List<String> phones,
             @Nullable List<String> providers) {
@@ -73,7 +73,7 @@ public class DashboardSearchTags {
     public enum SUPPORTED_SEARCH_TAGS {
         EMAIL("email"), PHONE("phone"), PROVIDER("provider");
 
-        private final String tag;
+        private String tag;
 
         SUPPORTED_SEARCH_TAGS(String tag) {
             this.tag = tag;

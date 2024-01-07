@@ -1,11 +1,11 @@
 package io.supertokens.pluginInterface.totp;
 
 public class TOTPUsedCode {
-    public final String userId;
-    public final String code;
-    public final boolean isValid;
-    public final long expiryTime;
-    public final long createdTime;
+    public String userId;
+    public String code;
+    public boolean isValid;
+    public long expiryTime;
+    public long createdTime;
 
     public TOTPUsedCode(String userId, String code, Boolean isValidCode,
                         long expiryTime,

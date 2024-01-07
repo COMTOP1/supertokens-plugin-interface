@@ -22,20 +22,20 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class TenantIdentifier {
-    public static final String DEFAULT_TENANT_ID = "public";
-    public static final String DEFAULT_APP_ID = "public";
-    public static final String DEFAULT_CONNECTION_URI = "";
+    public static String DEFAULT_TENANT_ID = "public";
+    public static String DEFAULT_APP_ID = "public";
+    public static String DEFAULT_CONNECTION_URI = "";
 
     public static TenantIdentifier BASE_TENANT = new TenantIdentifier(null, null, null);
 
     @Nullable
-    private final String connectionUriDomain;
+    private String connectionUriDomain;
 
     @Nullable
-    private final String tenantId;
+    private String tenantId;
 
     @Nullable
-    private final String appId;
+    private String appId;
 
     public TenantIdentifier(@Nullable String connectionUriDomain, @Nullable String appId, @Nullable String tenantId) {
         this.connectionUriDomain = connectionUriDomain;

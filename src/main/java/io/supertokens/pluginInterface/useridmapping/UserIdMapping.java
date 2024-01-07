@@ -20,11 +20,11 @@ import javax.annotation.Nullable;
 
 public class UserIdMapping {
 
-    public final String superTokensUserId;
+    public String superTokensUserId;
 
-    public final String externalUserId;
+    public String externalUserId;
 
-    public final @Nullable String externalUserIdInfo;
+    public @Nullable String externalUserIdInfo;
 
     public UserIdMapping(String superTokensUserId, String externalUserId, @Nullable String externalUserIdInfo) {
         this.superTokensUserId = superTokensUserId;

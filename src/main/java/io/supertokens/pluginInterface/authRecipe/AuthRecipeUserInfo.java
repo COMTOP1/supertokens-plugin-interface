@@ -25,7 +25,7 @@ import java.util.*;
 
 public class AuthRecipeUserInfo {
 
-    private final String id;
+    private String id;
 
     private String externalUserId = null;
 

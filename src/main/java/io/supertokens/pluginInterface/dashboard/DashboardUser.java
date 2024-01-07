@@ -1,12 +1,12 @@
 package io.supertokens.pluginInterface.dashboard;
 
 public class DashboardUser {
-    public final String email;
-    public final String userId;
-    public final long timeJoined;
+    public String email;
+    public String userId;
+    public long timeJoined;
 
     // using transient, we tell Gson not to include this when creating a JSON
-    public transient final String passwordHash;
+    public transient String passwordHash;
 
     public DashboardUser(String userId, String email, String passwordHash, long timeJoined) {
         this.userId = userId;

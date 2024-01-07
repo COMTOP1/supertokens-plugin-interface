@@ -27,10 +27,10 @@ import javax.annotation.Nullable;
 import java.util.*;
 
 public class ThirdPartyConfig {
-    public final boolean enabled;
+    public boolean enabled;
 
     @Nonnull
-    public final Provider[] providers;
+    public Provider[] providers;
 
     public ThirdPartyConfig(boolean enabled, @Nullable Provider[] providers) {
         this.enabled = enabled;
@@ -52,46 +52,46 @@ public class ThirdPartyConfig {
     public static class Provider {
 
         @Nonnull
-        public final String thirdPartyId;
+        public String thirdPartyId;
 
         @Nonnull
-        public final String name;
+        public String name;
 
         @Nonnull
-        public final ProviderClient[] clients;
+        public ProviderClient[] clients;
 
         @Nullable
-        public final String authorizationEndpoint;
+        public String authorizationEndpoint;
 
         @Nullable
-        public final JsonObject authorizationEndpointQueryParams;
+        public JsonObject authorizationEndpointQueryParams;
 
         @Nullable
-        public final String tokenEndpoint;
+        public String tokenEndpoint;
 
         @Nullable
-        public final JsonObject tokenEndpointBodyParams;
+        public JsonObject tokenEndpointBodyParams;
 
         @Nullable
-        public final String userInfoEndpoint;
+        public String userInfoEndpoint;
 
         @Nullable
-        public final JsonObject userInfoEndpointQueryParams;
+        public JsonObject userInfoEndpointQueryParams;
 
         @Nullable
-        public final JsonObject userInfoEndpointHeaders;
+        public JsonObject userInfoEndpointHeaders;
 
         @Nullable
-        public final String jwksURI;
+        public String jwksURI;
 
         @Nullable
-        public final String oidcDiscoveryEndpoint;
+        public String oidcDiscoveryEndpoint;
 
         @Nullable
-        public final Boolean requireEmail;
+        public Boolean requireEmail;
 
         @Nonnull
-        public final UserInfoMap userInfoMap;
+        public UserInfoMap userInfoMap;
 
         public Provider(@Nonnull String thirdPartyId, @Nonnull String name, @Nullable ProviderClient[] clients,
                         @Nullable String authorizationEndpoint,
@@ -179,22 +179,22 @@ public class ThirdPartyConfig {
     public static class ProviderClient {
 
         @Nullable
-        public final String clientType;
+        public String clientType;
 
         @Nonnull
-        public final String clientId;
+        public String clientId;
 
         @Nullable
-        public final String clientSecret;
+        public String clientSecret;
 
         @Nullable
-        public final String[] scope;
+        public String[] scope;
 
         @Nullable
-        public final Boolean forcePKCE;
+        public Boolean forcePKCE;
 
         @Nullable
-        public final JsonObject additionalConfig;
+        public JsonObject additionalConfig;
 
         public ProviderClient(@Nullable String clientType, @Nonnull String clientId, @Nullable String clientSecret,
                               @Nullable String[] scope,
@@ -224,10 +224,10 @@ public class ThirdPartyConfig {
 
     public static class UserInfoMap {
         @Nonnull
-        public final UserInfoMapKeyValue fromIdTokenPayload;
+        public UserInfoMapKeyValue fromIdTokenPayload;
 
         @Nonnull
-        public final UserInfoMapKeyValue fromUserInfoAPI;
+        public UserInfoMapKeyValue fromUserInfoAPI;
 
         public UserInfoMap(@Nullable UserInfoMapKeyValue fromIdTokenPayload,
                            @Nullable UserInfoMapKeyValue fromUserInfoAPI) {
@@ -248,13 +248,13 @@ public class ThirdPartyConfig {
 
     public static class UserInfoMapKeyValue {
         @Nullable
-        public final String userId;
+        public String userId;
 
         @Nullable
-        public final String email;
+        public String email;
 
         @Nullable
-        public final String emailVerified;
+        public String emailVerified;
 
         public UserInfoMapKeyValue(@Nullable String userId, @Nullable String email, @Nullable String emailVerified) {
             this.userId = userId;

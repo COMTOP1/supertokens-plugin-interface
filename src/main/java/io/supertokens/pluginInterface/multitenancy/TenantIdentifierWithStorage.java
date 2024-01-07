@@ -34,7 +34,7 @@ import javax.annotation.Nullable;
 public class TenantIdentifierWithStorage extends TenantIdentifier {
 
     @Nonnull
-    private final Storage storage;
+    private Storage storage;
 
     public TenantIdentifierWithStorage(@Nullable String connectionUriDomain, @Nullable String appId,
                                        @Nullable String tenantId, @Nonnull

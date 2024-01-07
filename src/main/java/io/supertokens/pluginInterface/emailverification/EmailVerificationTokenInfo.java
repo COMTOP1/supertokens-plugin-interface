@@ -17,13 +17,13 @@
 package io.supertokens.pluginInterface.emailverification;
 
 public class EmailVerificationTokenInfo {
-    public final String userId;
+    public String userId;
 
-    public final String token;
+    public String token;
 
-    public final long tokenExpiry;
+    public long tokenExpiry;
 
-    public final String email;
+    public String email;
 
     public EmailVerificationTokenInfo(String userId, String token, long tokenExpiry, String email) {
         this.userId = userId;

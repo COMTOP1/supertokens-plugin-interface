@@ -17,9 +17,9 @@
 package io.supertokens.pluginInterface.oauth2;
 
 public class OAuth2ClientScope {
-    public final String clientId;
-    public final String scope;
-    public final boolean requiresConsent;
+    public String clientId;
+    public String scope;
+    public boolean requiresConsent;
 
     public OAuth2ClientScope(String clientId, String scope, boolean requiresConsent) {
         this.clientId = clientId;

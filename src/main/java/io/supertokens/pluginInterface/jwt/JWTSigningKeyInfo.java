@@ -17,10 +17,10 @@
 package io.supertokens.pluginInterface.jwt;
 
 public abstract class JWTSigningKeyInfo {
-    public final String keyId;
-    public final long createdAtTime;
-    public final String algorithm;
-    public final String keyString;
+    public String keyId;
+    public long createdAtTime;
+    public String algorithm;
+    public String keyString;
 
     public JWTSigningKeyInfo(String keyId, long createdAtTime, String algorithm, String keyString) {
         this.keyId = keyId;

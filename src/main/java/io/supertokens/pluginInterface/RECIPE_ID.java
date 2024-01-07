@@ -24,7 +24,7 @@ public enum RECIPE_ID {
     USER_ROLES("userroles"), USER_ID_MAPPING("useridmapping"), DASHBOARD("dashboard"), TOTP("totp"),
     MULTITENANCY("multitenancy"), ACCOUNT_LINKING("accountlinking"), MFA("mfa");
 
-    private final String name;
+    private String name;
 
     RECIPE_ID(String s) {
         name = s;

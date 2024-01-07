@@ -20,12 +20,12 @@ import java.util.HashSet;
 import java.util.List;
 
 public class OAuth2Client {
-    public final String clientId;
-    public final String name;
-    public final String clientSecretHash;
-    public final List<String> redirectUris;
-    public final long createdAtMs;
-    public final long updatedAtMs;
+    public String clientId;
+    public String name;
+    public String clientSecretHash;
+    public List<String> redirectUris;
+    public long createdAtMs;
+    public long updatedAtMs;
 
     public OAuth2Client(String clientId, String name, String clientSecretHash, List<String> redirectUris,
                         long createdAtMs, long updatedAtMs) {
