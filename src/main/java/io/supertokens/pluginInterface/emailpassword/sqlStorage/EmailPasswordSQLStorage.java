@@ -24,6 +24,7 @@ import io.supertokens.pluginInterface.exceptions.StorageQueryException;
 import io.supertokens.pluginInterface.multitenancy.AppIdentifier;
 import io.supertokens.pluginInterface.sqlStorage.SQLStorage;
 import io.supertokens.pluginInterface.sqlStorage.SessionObject;
+import io.supertokens.pluginInterface.sqlStorage.TransactionConnection;
 
 public interface EmailPasswordSQLStorage extends EmailPasswordStorage, SQLStorage {
 

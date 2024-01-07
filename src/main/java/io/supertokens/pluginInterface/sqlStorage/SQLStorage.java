@@ -65,8 +65,6 @@ public interface SQLStorage extends Storage {
     <T> T startTransaction(TransactionLogic<T> logic, TransactionIsolationLevel isolationLevel)
             throws StorageQueryException, StorageTransactionLogicException;
 
-    void commitTransaction(TransactionConnection con) throws StorageQueryException;
-
     void setKeyValue_Transaction(TenantIdentifier tenantIdentifier, TransactionConnection con, String key,
                                  KeyValueInfo info) throws StorageQueryException, TenantOrAppNotFoundException;
 
