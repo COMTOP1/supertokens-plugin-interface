@@ -16,13 +16,15 @@
 
 package io.supertokens.pluginInterface.multitenancy;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import io.supertokens.pluginInterface.exceptions.InvalidConfigException;
+import io.supertokens.pluginInterface.utils.Utils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Arrays;
-import java.util.Objects;
+import java.util.*;
 
 public class ThirdPartyConfig {
     public final boolean enabled;
@@ -33,6 +35,18 @@ public class ThirdPartyConfig {
     public ThirdPartyConfig(boolean enabled, @Nullable Provider[] providers) {
         this.enabled = enabled;
         this.providers = providers == null ? new Provider[0] : providers;
+    }
+
+    public JsonObject toJson() {
+        JsonObject result = new JsonObject();
+        result.addProperty("enabled", this.enabled);
+        result.add("providers", new JsonArray());
+
+        for (Provider provider : this.providers) {
+            result.getAsJsonArray("providers").add(provider.toJson());
+        }
+
+        return result;
     }
 
     public static class Provider {
@@ -103,13 +117,48 @@ public class ThirdPartyConfig {
             this.userInfoMap = userInfoMap == null ? new UserInfoMap(null, null) : userInfoMap;
         }
 
+        public JsonObject toJson() {
+            JsonObject result = new Gson().toJsonTree(this).getAsJsonObject();
+
+            // These properties need to retain null values when serialized
+            if (this.authorizationEndpointQueryParams != null) {
+                result.add("authorizationEndpointQueryParams",
+                        new GsonBuilder().serializeNulls().create().toJsonTree(this.authorizationEndpointQueryParams));
+            } else {
+                result.remove("authorizationEndpointQueryParams");
+            }
+
+            if (this.tokenEndpointBodyParams != null) {
+                result.add("tokenEndpointBodyParams", new GsonBuilder().serializeNulls().create().toJsonTree(this.tokenEndpointBodyParams));
+            } else {
+                result.remove("tokenEndpointBodyParams");
+            }
+
+            if (this.userInfoEndpointQueryParams != null) {
+                result.add("userInfoEndpointQueryParams", new GsonBuilder().serializeNulls().create().toJsonTree(this.userInfoEndpointQueryParams));
+            } else {
+                result.remove("userInfoEndpointQueryParams");
+            }
+
+            if (this.userInfoEndpointHeaders != null) {
+                result.add("userInfoEndpointHeaders", new GsonBuilder().serializeNulls().create().toJsonTree(this.userInfoEndpointHeaders));
+            } else {
+                result.remove("userInfoEndpointHeaders");
+            }
+            return result;
+        }
+
         @Override
         public boolean equals(Object other) {
+            if (other == null) {
+                return false;
+            }
+
             if (other instanceof Provider) {
                 Provider otherProvider = (Provider) other;
-                return otherProvider.thirdPartyId.equals(this.thirdPartyId) &&
-                        otherProvider.name.equals(this.name) &&
-                        Arrays.equals(otherProvider.clients, this.clients) &&
+                return Objects.equals(otherProvider.thirdPartyId, this.thirdPartyId) &&
+                        Objects.equals(otherProvider.name, this.name) &&
+                        Utils.unorderedArrayEquals(otherProvider.clients, this.clients) &&
                         Objects.equals(otherProvider.authorizationEndpoint, this.authorizationEndpoint) &&
                         Objects.equals(otherProvider.authorizationEndpointQueryParams,
                                 this.authorizationEndpointQueryParams) &&
@@ -165,7 +214,7 @@ public class ThirdPartyConfig {
                 return Objects.equals(otherProviderClient.clientType, this.clientType) &&
                         otherProviderClient.clientId.equals(this.clientId) &&
                         Objects.equals(otherProviderClient.clientSecret, this.clientSecret) &&
-                        Arrays.equals(otherProviderClient.scope, this.scope) &&
+                        Utils.unorderedArrayEquals(otherProviderClient.scope, this.scope) &&
                         otherProviderClient.forcePKCE == this.forcePKCE &&
                         Objects.equals(otherProviderClient.additionalConfig, this.additionalConfig);
             }
@@ -230,7 +279,7 @@ public class ThirdPartyConfig {
         if (other instanceof ThirdPartyConfig) {
             ThirdPartyConfig otherThirdPartyConfig = (ThirdPartyConfig) other;
             return otherThirdPartyConfig.enabled == this.enabled &&
-                    Arrays.equals(otherThirdPartyConfig.providers, this.providers);
+                    Utils.unorderedArrayEquals(otherThirdPartyConfig.providers, this.providers);
         }
         return false;
     }

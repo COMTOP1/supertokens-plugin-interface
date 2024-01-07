@@ -14,22 +14,10 @@
  *    under the License.
  */
 
-package io.supertokens.pluginInterface.emailpassword;
+package io.supertokens.pluginInterface.thirdparty.exception;
 
-public class PasswordResetTokenInfo {
+import io.supertokens.pluginInterface.emailpassword.exceptions.EmailPasswordException;
 
-    public final String userId;
-
-    public final String token;
-
-    public final long tokenExpiry;
-
-    public final String email;
-
-    public PasswordResetTokenInfo(String userId, String token, long tokenExpiry, String email) {
-        this.userId = userId;
-        this.token = token;
-        this.tokenExpiry = tokenExpiry;
-        this.email = email;
-    }
+public class DuplicateThirdPartyTenantMappingException extends EmailPasswordException {
+    private static final long serialVersionUID = 6848053563771647272L;
 }
