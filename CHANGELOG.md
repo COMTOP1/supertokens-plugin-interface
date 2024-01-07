@@ -7,6 +7,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+- Updated interfaces to interact with generic sql plugin
+
 ## [5.0.0] - 2023-11-29
 
 - Adds interfaces for Third Party tenant mapping functions

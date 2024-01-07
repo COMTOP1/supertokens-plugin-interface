@@ -14,25 +14,25 @@ import io.supertokens.pluginInterface.totp.exception.UsedCodeAlreadyExistsExcept
 import io.supertokens.pluginInterface.totp.exception.UnknownTotpUserIdException;
 
 public interface TOTPSQLStorage extends TOTPStorage, SQLStorage {
-    public int deleteDevice_Transaction(TransactionConnection con, AppIdentifier appIdentifier, String userId,
-                                        String deviceName)
+    int deleteDevice_Transaction(TransactionConnection con, AppIdentifier appIdentifier, String userId,
+                                 String deviceName)
             throws StorageQueryException;
 
-    public TOTPDevice[] getDevices_Transaction(TransactionConnection con, AppIdentifier appIdentifier, String userId)
+    TOTPDevice[] getDevices_Transaction(TransactionConnection con, AppIdentifier appIdentifier, String userId)
             throws StorageQueryException;
 
-    public void removeUser_Transaction(TransactionConnection con, AppIdentifier appIdentifier, String userId)
+    void removeUser_Transaction(TransactionConnection con, AppIdentifier appIdentifier, String userId)
             throws StorageQueryException;
 
-    public boolean removeUser(TenantIdentifier tenantIdentifier, String userId)
+    boolean removeUser(TenantIdentifier tenantIdentifier, String userId)
             throws StorageQueryException;
 
     /**
      * Get totp used codes for user (expired/non-expired) yet (sorted by descending
      * order of created time):
      */
-    public TOTPUsedCode[] getAllUsedCodesDescOrder_Transaction(TransactionConnection con,
-                                                               TenantIdentifier tenantIdentifier, String userId)
+    TOTPUsedCode[] getAllUsedCodesDescOrder_Transaction(TransactionConnection con,
+                                                        TenantIdentifier tenantIdentifier, String userId)
             throws StorageQueryException;
 
     /**

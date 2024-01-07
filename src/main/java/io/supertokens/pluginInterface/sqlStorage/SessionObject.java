@@ -12,15 +12,20 @@
  *    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
  *    License for the specific language governing permissions and limitations
  *    under the License.
+ *
  */
 
-package io.supertokens.pluginInterface.passwordless.exception;
+package io.supertokens.pluginInterface.sqlStorage;
 
-import io.supertokens.pluginInterface.emailpassword.exceptions.EmailPasswordException;
+// This class enables the core to pass around a connection without knowing about it
+public class SessionObject {
+    private final Object session;
 
-import java.io.Serial;
+    public SessionObject(Object session) {
+        this.session = session;
+    }
 
-public class UnknownDeviceIdHash extends EmailPasswordException {
-    @Serial
-    private static final long serialVersionUID = 6848053563771647272L;
+    public Object getSession() {
+        return session;
+    }
 }

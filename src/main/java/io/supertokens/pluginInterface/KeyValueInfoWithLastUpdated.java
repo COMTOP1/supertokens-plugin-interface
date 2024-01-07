@@ -18,9 +18,9 @@
 package io.supertokens.pluginInterface;
 
 public class KeyValueInfoWithLastUpdated {
-    public String value;
-    public long createdAtTime;
-    public String lastUpdatedSign;
+    public final String value;
+    public final long createdAtTime;
+    public final String lastUpdatedSign;
 
     public KeyValueInfoWithLastUpdated(String value, long createdAtTime, String lastUpdatedSign) {
         this.value = value;

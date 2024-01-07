@@ -45,8 +45,7 @@ public class Utils {
         }
 
         List<Object> items1 = List.of(array1);
-        List<Object> items2 = new ArrayList<>();
-        items2.addAll(Arrays.asList(array2));
+        List<Object> items2 = new ArrayList<>(Arrays.asList(array2));
 
         if (items1.size() != items2.size()) return false;
 

@@ -44,7 +44,7 @@ public interface Storage {
     String getConnectionPoolId();
 
     // if the input otherConfig has different values set for the same properties as this user pool's config,
-    // then this function should throw an error since this is a misconfig from ther user's side.
+    // then this function should throw an error since this is a misconfiguration from their user's side.
     void assertThatConfigFromSameUserPoolIsNotConflicting(JsonObject otherConfig) throws InvalidConfigException;
 
     void initFileLogging(String infoLogPath, String errorLogPath);
@@ -84,7 +84,7 @@ public interface Storage {
     void modifyConfigToAddANewUserPoolForTesting(JsonObject config, int poolNumber);
 
     // this function returns a list of protected configs which users of supertokens saas can't read or modify
-    // when they are operating on tenantsm unless the supertokens_saas_secret key is used in the API request.
+    // when they are operating on tenants unless the supertokens_saas_secret key is used in the API request.
     String[] getProtectedConfigsFromSuperTokensSaaSUsers();
 
     Set<String> getValidFieldsInConfig();

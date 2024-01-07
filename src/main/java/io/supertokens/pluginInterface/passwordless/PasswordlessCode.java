@@ -58,12 +58,7 @@ public class PasswordlessCode {
             return false;
         }
         if (linkCodeHash == null) {
-            if (other.linkCodeHash != null) {
-                return false;
-            }
-        } else if (!linkCodeHash.equals(other.linkCodeHash)) {
-            return false;
-        }
-        return true;
+            return other.linkCodeHash == null;
+        } else return linkCodeHash.equals(other.linkCodeHash);
     }
 }

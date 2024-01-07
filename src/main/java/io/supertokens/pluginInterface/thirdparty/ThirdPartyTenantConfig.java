@@ -34,8 +34,8 @@ public class ThirdPartyTenantConfig {
         if (other instanceof ThirdPartyTenantConfig) {
             ThirdPartyTenantConfig otherThirdPartyTenantConfig = (ThirdPartyTenantConfig) other;
             return otherThirdPartyTenantConfig.supertokensTenantId.equals(this.supertokensTenantId)
-                    && otherThirdPartyTenantConfig.thirdPartyId.equals(otherThirdPartyTenantConfig.thirdPartyId)
-                    && otherThirdPartyTenantConfig.config.equals(otherThirdPartyTenantConfig.config);
+                    && otherThirdPartyTenantConfig.thirdPartyId.equals(this.thirdPartyId)
+                    && otherThirdPartyTenantConfig.config.equals(this.config);
         }
 
         return false;

@@ -16,6 +16,9 @@
 
 package io.supertokens.pluginInterface.oauth2.exception;
 
+import java.io.Serial;
+
 public class UnknownOAuth2AccessTokenHashException extends Exception {
+    @Serial
     private static final long serialVersionUID = 6848053563771647272L;
 }

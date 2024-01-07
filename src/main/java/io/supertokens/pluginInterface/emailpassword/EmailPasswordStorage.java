@@ -27,6 +27,8 @@ import io.supertokens.pluginInterface.multitenancy.AppIdentifier;
 import io.supertokens.pluginInterface.multitenancy.TenantIdentifier;
 import io.supertokens.pluginInterface.multitenancy.exceptions.TenantOrAppNotFoundException;
 
+import javax.annotation.Nonnull;
+
 public interface EmailPasswordStorage extends AuthRecipeStorage {
 
     // we pass tenantIdentifier here cause this also adds to the userId <-> tenantId mapping
@@ -48,5 +50,30 @@ public interface EmailPasswordStorage extends AuthRecipeStorage {
 
     PasswordResetTokenInfo[] getAllPasswordResetTokenInfoForUser(AppIdentifier appIdentifier, String userId)
             throws StorageQueryException;
+
+    void signUp(UserInfo userInfo) throws StorageQueryException, DuplicateUserIdException, DuplicateEmailException;
+
+    void deleteEmailPasswordUser(String userId) throws StorageQueryException;
+
+    UserInfo getUserInfoUsingId(String id) throws StorageQueryException;
+
+    UserInfo getUserInfoUsingEmail(String email) throws StorageQueryException;
+
+    void addPasswordResetToken(PasswordResetTokenInfo passwordResetTokenInfo)
+            throws StorageQueryException, UnknownUserIdException, DuplicatePasswordResetTokenException;
+
+    PasswordResetTokenInfo getPasswordResetTokenInfo(String token) throws StorageQueryException;
+
+    PasswordResetTokenInfo[] getAllPasswordResetTokenInfoForUser(String userId) throws StorageQueryException;
+
+    @Deprecated
+    UserInfo[] getUsers(@Nonnull String userId, @Nonnull Long timeJoined, @Nonnull Integer limit,
+            @Nonnull String timeJoinedOrder) throws StorageQueryException;
+
+    @Deprecated
+    UserInfo[] getUsers(@Nonnull Integer limit, @Nonnull String timeJoinedOrder) throws StorageQueryException;
+
+    @Deprecated
+    long getUsersCount() throws StorageQueryException;
 
 }

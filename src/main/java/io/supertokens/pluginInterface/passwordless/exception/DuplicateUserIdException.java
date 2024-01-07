@@ -18,6 +18,9 @@ package io.supertokens.pluginInterface.passwordless.exception;
 
 import io.supertokens.pluginInterface.emailpassword.exceptions.EmailPasswordException;
 
+import java.io.Serial;
+
 public class DuplicateUserIdException extends EmailPasswordException {
+    @Serial
     private static final long serialVersionUID = 6848053563771647272L;
 }

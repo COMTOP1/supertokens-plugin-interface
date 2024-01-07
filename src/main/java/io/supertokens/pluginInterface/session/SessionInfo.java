@@ -19,15 +19,15 @@ package io.supertokens.pluginInterface.session;
 import com.google.gson.JsonObject;
 
 public class SessionInfo {
-    transient public String refreshTokenHash2;
-    public String sessionHandle;
-    public String userId;
-    public String recipeUserId;
-    public JsonObject userDataInDatabase;
-    public long expiry;
-    public JsonObject userDataInJWT;
-    public long timeCreated;
-    public transient boolean useStaticKey;
+    final transient public String refreshTokenHash2;
+    public final String sessionHandle;
+    public final String userId;
+    public final String recipeUserId;
+    public final JsonObject userDataInDatabase;
+    public final long expiry;
+    public final JsonObject userDataInJWT;
+    public final long timeCreated;
+    public final transient boolean useStaticKey;
 
     public SessionInfo(String sessionHandle, String userId, String recipeUserId, String refreshTokenHash2,
                        JsonObject userDataInDatabase,

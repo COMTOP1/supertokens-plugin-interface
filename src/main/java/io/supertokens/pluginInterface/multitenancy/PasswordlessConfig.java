@@ -17,7 +17,7 @@
 package io.supertokens.pluginInterface.multitenancy;
 
 public class PasswordlessConfig {
-    public boolean enabled;
+    public final boolean enabled;
 
     public PasswordlessConfig(boolean enabled) {
         this.enabled = enabled;
