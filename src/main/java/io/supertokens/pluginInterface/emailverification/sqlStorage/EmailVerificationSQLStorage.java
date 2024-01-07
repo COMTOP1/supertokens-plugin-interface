@@ -16,21 +16,52 @@
 
 package io.supertokens.pluginInterface.emailverification.sqlStorage;
 
+import io.supertokens.pluginInterface.authRecipe.AuthRecipeUserInfo;
+import io.supertokens.pluginInterface.emailpassword.PasswordResetTokenInfo;
+import io.supertokens.pluginInterface.emailpassword.exceptions.DuplicateEmailException;
+import io.supertokens.pluginInterface.emailpassword.exceptions.DuplicatePasswordResetTokenException;
+import io.supertokens.pluginInterface.emailpassword.exceptions.DuplicateUserIdException;
+import io.supertokens.pluginInterface.emailpassword.exceptions.UnknownUserIdException;
 import io.supertokens.pluginInterface.emailverification.EmailVerificationStorage;
 import io.supertokens.pluginInterface.emailverification.EmailVerificationTokenInfo;
 import io.supertokens.pluginInterface.exceptions.StorageQueryException;
+import io.supertokens.pluginInterface.multitenancy.AppIdentifier;
+import io.supertokens.pluginInterface.multitenancy.TenantIdentifier;
+import io.supertokens.pluginInterface.multitenancy.exceptions.TenantOrAppNotFoundException;
 import io.supertokens.pluginInterface.sqlStorage.SQLStorage;
+import io.supertokens.pluginInterface.sqlStorage.SessionObject;
+import io.supertokens.pluginInterface.sqlStorage.TransactionConnection;
 import io.supertokens.pluginInterface.sqlStorage.SessionObject;
 
 public interface EmailVerificationSQLStorage extends EmailVerificationStorage, SQLStorage {
 
     EmailVerificationTokenInfo[] getAllEmailVerificationTokenInfoForUser_Transaction(SessionObject sessionInstance,
-            String userId, String email) throws StorageQueryException;
+                                                                                     String userId, String email) throws StorageQueryException;
 
     void deleteAllEmailVerificationTokensForUser_Transaction(SessionObject sessionInstance, String userId, String email)
             throws StorageQueryException;
 
     void updateIsEmailVerified_Transaction(SessionObject sessionInstance, String userId, String email,
-            boolean isEmailVerified) throws StorageQueryException;
+                                           boolean isEmailVerified) throws StorageQueryException;
+
+    // we pass tenantIdentifier here cause this also adds to the userId <-> tenantId mapping
+    AuthRecipeUserInfo signUp(TenantIdentifier tenantIdentifier, String id, String email, String passwordHash, long timeJoined)
+            throws StorageQueryException, DuplicateUserIdException, DuplicateEmailException,
+            TenantOrAppNotFoundException;
+
+    // password reset stuff is app wide cause changing the password for a user affects all the tenants
+    // across which it's shared.
+    void addPasswordResetToken(AppIdentifier appIdentifier, PasswordResetTokenInfo passwordResetTokenInfo)
+            throws StorageQueryException, UnknownUserIdException, DuplicatePasswordResetTokenException;
+
+    PasswordResetTokenInfo getPasswordResetTokenInfo(AppIdentifier appIdentifier, String token)
+            throws StorageQueryException;
+
+    // we purposely do not add TenantIdentifier to this query cause
+    // this is called from a cronjob that runs per user pool ID
+    void deleteExpiredPasswordResetTokens() throws StorageQueryException;
+
+    PasswordResetTokenInfo[] getAllPasswordResetTokenInfoForUser(AppIdentifier appIdentifier, String userId)
+            throws StorageQueryException;
 
 }

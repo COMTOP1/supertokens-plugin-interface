@@ -1,5 +1,5 @@
 /*
- *    Copyright (c) 2020, VRAI Labs and/or its affiliates. All rights reserved.
+ *    Copyright (c) 2022, VRAI Labs and/or its affiliates. All rights reserved.
  *
  *    This software is licensed under the Apache License, Version 2.0 (the
  *    "License") as published by the Apache Software Foundation.
@@ -12,20 +12,13 @@
  *    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
  *    License for the specific language governing permissions and limitations
  *    under the License.
- *
  */
 
-package io.supertokens.pluginInterface.exceptions;
+package io.supertokens.pluginInterface.useridmapping.exception;
 
-public class QuitProgramFromPluginException extends RuntimeException {
+import java.io.Serial;
 
-    private static final long serialVersionUID = 1L;
-
-    public QuitProgramFromPluginException(String msg) {
-        super(msg);
-    }
-
-    public QuitProgramFromPluginException(Exception e) {
-        super(e);
-    }
+public class UnknownSuperTokensUserIdException extends UserIdMappingException {
+    @Serial
+    private static final long serialVersionUID = -2468061107846190216L;
 }
