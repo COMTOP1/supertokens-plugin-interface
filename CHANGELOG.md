@@ -9,6 +9,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [5.0.0] - 2023-11-29
 
+- Adds interfaces for Third Party tenant mapping functions
 - Replace `TotpNotEnabledException` with `UnknownUserTotpIdException`
 - ActiveUsersSQLStorage interface changes
   - Adds `deleteUserActive_Transaction` function
