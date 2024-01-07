@@ -21,7 +21,6 @@ import io.supertokens.pluginInterface.Storage;
 import io.supertokens.pluginInterface.authRecipe.AuthRecipeStorage;
 import io.supertokens.pluginInterface.emailpassword.sqlStorage.EmailPasswordSQLStorage;
 import io.supertokens.pluginInterface.emailverification.sqlStorage.EmailVerificationSQLStorage;
-import io.supertokens.pluginInterface.multitenancy.exceptions.TenantOrAppNotFoundException;
 import io.supertokens.pluginInterface.passwordless.sqlStorage.PasswordlessSQLStorage;
 import io.supertokens.pluginInterface.session.SessionStorage;
 import io.supertokens.pluginInterface.thirdparty.sqlStorage.ThirdPartySQLStorage;
@@ -123,7 +122,7 @@ public class TenantIdentifierWithStorage extends TenantIdentifier {
         }
         return (TOTPSQLStorage) this.storage;
     }
-
+    
     public MultitenancyStorage getMultitenancyStorageWithTargetStorage() {
         if (this.storage.getType() != STORAGE_TYPE.SQL) {
             // we only support SQL for now
